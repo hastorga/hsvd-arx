@@ -1,1 +1,1 @@
-#y = load("DataAR.dat");Y = [1,2,3,4,5,6,7,8,9,10];B = [1,2,3,4,5,6,7,8,9,10];n = 1;acum = 0;efor i = 1:n[B,A] = hsvd(B);acum = acum + A;endforX = B + acummean((X-Y).^2);
+#y = load("DataAR.dat");Y = [1,2,3,4,5,6,7,8,9,10];B = [1,2,3,4,5,6,7,8,9,10];n = 1;acum = 0;for i = 1:n[B,A] = hsvd(B);acum = acum + A;endforX = B + acum;mean((X-Y).^2);
