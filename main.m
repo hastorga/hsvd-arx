@@ -1,6 +1,6 @@
-#y = load("DataAR.dat");
-Y = [1,2,3,4,5,6,7,8,9,10];
-B = [1,2,3,4,5,6,7,8,9,10];
+Y = load("DataAR.dat");
+#Y = [1,2,3,4,5,6,7,8,9,10];
+B = Y';
 n = 1;
 acum = 0;
 
@@ -19,6 +19,7 @@ mean((X-Y).^2);
 # Se obtienen los valores estimados de las frecuencias mediante la AR
 l = ar(B);
 h = ar(acum);
-final = l+h
+final = l+h;
 
+plot(final)
 
