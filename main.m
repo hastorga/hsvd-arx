@@ -22,6 +22,7 @@ l = ar(B,h);
 h = ar(acum,h);
 final = l+h;
 
+
 figure(1)
 plot(Y)
 figure(2)
