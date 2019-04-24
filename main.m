@@ -6,7 +6,6 @@ acum = 0;
 h = 90;
 matrix_80_size = int16((size(B,2)-h)*0.8)+1;
 matrix_content = B(1,matrix_80_size:(size(B,2)-h));
-
 for i = 1:n
 #Se obtienen los valores de alta y baja frecuencia que son retornados por la función hsvd 
 [B,A] = hsvd(B);
@@ -23,10 +22,10 @@ l = ar(B,h);
 h = ar(acum,h);
 final = l+h;
 
-#figure(1)
-#plot(Y)
-#figure(2)
-#plot(final)
+figure(1)
+plot(Y)
+figure(2)
+plot(final)
 
 err = mean((matrix_content'-final).^2)
 
