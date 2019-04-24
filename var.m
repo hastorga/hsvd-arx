@@ -1,0 +1,1 @@
+function [result] = var(y)# Settingsacum = 0;Y = mean(y);# Variance formulafor i = 1:size(y,1)  acum = acum + (y(i)-Y).^2;endfor# returnresult = acum;endfunction
