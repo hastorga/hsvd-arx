@@ -1,9 +1,12 @@
 Y = load("DataAR.dat");
 #Y = [1,2,3,4,5,6,7,8,9,10];
 B = Y';
-n = 10;
+n = 1;
 acum = 0;
-h = 20;
+h = 3;
+
+matrix_80_size = int16(size(B,2)*0.8)+1;
+matrix_content = B(1,matrix_80_size:end)
 
 for i = 1:n
 #Se obtienen los valores de alta y baja frecuencia que son retornados por la función hsvd 
@@ -24,4 +27,6 @@ figure(1)
 plot(Y)
 figure(2)
 plot(final)
+err = mean((matrix_content'-final).^2)
+
 
