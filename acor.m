@@ -1,0 +1,1 @@
+function [result] = acor(y,lag)# Settingsvector = [1];acum = 0;Y = mean(y);# Variancevariance = var(y);# Autocorrelation formulafor i = 1:lag  autocovariance = acov(y,i);  vector(i+1) = autocovariance/variance; endfor# returnresult = vector;endfunction
