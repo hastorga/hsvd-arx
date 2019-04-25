@@ -1,0 +1,1 @@
+function [result] = acov(y,lag)# Settingsacum = 0;Y = mean(y);# Autocovariance formulafor i = lag+1:size(y,1)  acum = acum + (y(i) - Y)*(y(i-lag)-Y);endfor# returnresult = acum;endfunction
