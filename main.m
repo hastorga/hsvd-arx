@@ -3,7 +3,7 @@ Y = load("DataAR.dat");
 B = Y';
 n = 10;
 acum = 0;
-h = 90;
+h = 1;
 matrix_80_size = int16((size(B,2)-h)*0.8)+1;
 matrix_content = B(1,matrix_80_size:(size(B,2)-h));
 for i = 1:n
@@ -21,12 +21,33 @@ mean((X-Y).^2);
 l = ar(B,h);
 h = ar(acum,h);
 final = l+h;
+size(final)
+size(Y(347:end))
 
-
+# Figura 1
 figure(1)
-plot(Y)
+clf('reset')
+plot(Y(346:end))
+hold on
+plot(final, '-','color','r')
+set(gcf,'name', 'Name goes here')
+legend({'Valor Actual','Valor estimado'},"location",'northwest')
+title('(a)')
+set(gcf,'name', 'Valor Observado v/s Valor estimado')
+xlabel('Time (month)')
+ylabel('Y values')
+
+# Figura 2
 figure(2)
-plot(final)
+clf('reset')
+plot(Y(347:end),final,'o','color','k')
+hold on
+set(gcf,'name', 'Name goes here')
+legend({'Data Points'},"location",'northwest')
+title('(b)')
+set(gcf,'name', 'Curva de Dispersion')
+xlabel('X')
+ylabel('Y')
 
 err = mean((matrix_content'-final).^2)
 
