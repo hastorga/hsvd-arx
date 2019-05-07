@@ -1,1 +1,1 @@
-function [matrix] = rvector(y,h)  H = h+1;  Y = size(y,1);  matrix = zeros(Y,H);  cont = 1;    for i = 1:H    cont = 1;    for j = i:(Y)      matrix(j,i) = y(cont);      cont = cont + 1;    endfor  endforendfunction
+function [matrix] = rvector(y,h)  H = h+1;  Y = size(y,1);  matrix = zeros(Y,H);  cont = 1;  for i = 1:H    cont = 1;    for j = i:(Y)      matrix(j,i) = y(cont);      cont = cont + 1;    endfor  endforendfunction

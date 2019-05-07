@@ -1,0 +1,1 @@
+function  [h] = hankel(x)n = numel(x);h = [x(1:n-2); x(2:n-1); x(3:n)];end

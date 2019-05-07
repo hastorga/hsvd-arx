@@ -1,54 +1,68 @@
-Y = load("DataAR.dat");
-#Y = [1,2,3,4,5,6,7,8,9,10];
-B = Y';
-n = 10;
+Y = load("DataGrupo1.dat");
+
+memo = 30;
+erVec = [];
+
+for z = 1:memo
+#Y = [1;2;3;4;5;6;7;8;9;10]; # Data ejeplo easy
+n = 10; # niveles de descomposicion
+horizonte = 1; #horizonte
+h = z; # lag
+hrow = 2; # filas hankel
+#train = size(Y,1)*0.2; # % de entrenamiento
 acum = 0;
-h = 1;
-matrix_80_size = int16((size(B,2)-h)*0.8)+1;
-matrix_content = B(1,matrix_80_size:(size(B,2)-h));
+#trainData = Y(1:size(Y,1)*train);
+B = Y';
+#matrix_80_size = int16(size(B,2)*0.8)+1;
+#matrix_content = B(1,matrix_80_size:end);
+
 for i = 1:n
 #Se obtienen los valores de alta y baja frecuencia que son retornados por la función hsvd 
-[B,A] = hsvd(B);
+[B,A] = hsvd(B,hrow);
 acum = acum + A; # Suma de las altas frecuencias
 endfor
 
 # Se suman los valores de la componente de alta frecuencia a los de baja frecuencia. 
 # X debe ser igual al dataset de entrada.
 X = B + acum;
-mean((X-Y).^2);
 
 # Se obtienen los valores estimados de las frecuencias mediante la AR
-l = ar(B,h);
-h = ar(acum,h);
-final = l+h;
-size(final)
-size(Y(347:end))
+lf = ar(B,h, horizonte,train);
+arx = [B acum];
+hf = ar(arx,h, horizonte,train);
 
-# Figura 1
+final = hf+lf;
 figure(1)
-clf('reset')
-plot(Y(346:end))
+cla()
+plot(Y(size(Y,1)-117:end,1))
 hold on
-plot(final, '-','color','r')
-set(gcf,'name', 'Name goes here')
-legend({'Valor Actual','Valor estimado'},"location",'northwest')
-title('(a)')
-set(gcf,'name', 'Valor Observado v/s Valor estimado')
-xlabel('Time (month)')
-ylabel('Y values')
+plot(final, "r")
 
-# Figura 2
+
+#x = [real,final] 
+
+
+
+
+
+real = Y(size(Y,1)-117:end,1);
+e = real-final;
+err = mean(real-final).^2;
+rmse = err.^0.5;
+mae = mean(abs(e));
+mape = mean(abs(e./real));
+mNSE = 1 - (sum(abs(e))/sum(abs(real.-mean(real)))) ;
+GCV(z) = err/(1-(memo/size(Y,1))).^2;
+r2 = 1 - (var(e)/var(real));
+r2Vec(z) = r2;
+rmeVec(z) = rmse;
+mnseVec(z) = mNSE;
+endfor
+
 figure(2)
-clf('reset')
-plot(Y(347:end),final,'o','color','k')
-hold on
-set(gcf,'name', 'Name goes here')
-legend({'Data Points'},"location",'northwest')
-title('(b)')
-set(gcf,'name', 'Curva de Dispersion')
-xlabel('X')
-ylabel('Y')
+cla()
+plot(GCV)
 
-err = mean((matrix_content'-final).^2)
-
-
+figure(3)
+cla()
+plot(r2Vec)
