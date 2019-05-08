@@ -1,0 +1,1 @@
+function vreg = vectorregresor(memoria, horizonte, serie)  vreg = [];  for i=memoria+horizonte:length(serie)    fila = [serie(i)];    for j=1:memoria      fila = [fila serie(i-j-horizonte+1)];    endfor    vreg = [vreg; fila];  endforendfunction
