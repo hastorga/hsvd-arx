@@ -9,12 +9,14 @@ n = 10; # niveles de descomposicion
 horizonte = 1; #horizonte
 h = z; # lag
 hrow = 2; # filas hankel
-#train = size(Y,1)*0.2; # % de entrenamiento
+trainpercent = 0.8;
 acum = 0;
-#trainData = Y(1:size(Y,1)*train);
 B = Y';
-#matrix_80_size = int16(size(B,2)*0.8)+1;
-#matrix_content = B(1,matrix_80_size:end);
+
+matrix_training_size = int16(size(Y,1)* trainpercent)+1
+training_data = Y(1:matrix_training_size);
+
+test_data = Y(matrix_training_size:end);
 
 for i = 1:n
 #Se obtienen los valores de alta y baja frecuencia que son retornados por la función hsvd 
@@ -27,9 +29,9 @@ endfor
 X = B + acum;
 
 # Se obtienen los valores estimados de las frecuencias mediante la AR
-lf = ar(B,h, horizonte,train);
+lf = ar(B,h, horizonte,training_data);
 arx = [B acum];
-hf = ar(arx,h, horizonte,train);
+hf = ar(arx,h, horizonte,training_data);
 
 final = hf+lf;
 figure(1)
